@@ -35,20 +35,21 @@ Read our [OpenReview paper](https://openreview.net/forum?id=gMvARxotd6).
 ## Requirements
 Install dependencies: `pip install -r requirements.txt`
 
-All training and evaluations data splits are available at:
+All training and evaluation data splits and preference pairs are available at:
 
 1. [WTD Original](https://huggingface.co/datasets/Abhijnan/wtd_original_data)  
 2. [WTD Simulated](https://huggingface.co/datasets/Abhijnan/wtd_simulated_data)
+3. [Delidata](https://huggingface.co/datasets/Abhijnan/delidata_wasoncard_friction_data)
 
-3. Run training through `faaf_main_training_file.py`
+4. Run training through `faaf_main_training_file.py`
    * Uses configs from `faaf_config.py`
    * Implements FAAF trainer from `faaf_trainer.py`
 
-4. For baselines:
+5. For baselines:
    * Use `opt_reward_modeling.py` for reward modeling
    * Use `ppo_baseline_training.py` for PPO comparison
 
-5. For evaluation:
+6. For evaluation:
    * Run `friction_agent_inference.py` for model generations
    * Use `llm_judge_evals.py` for preference scoring
 
