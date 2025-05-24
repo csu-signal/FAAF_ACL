@@ -1,6 +1,10 @@
 # FAAF_ACL
 Code repository for the ACL 2025 Main Conference paper "Frictional Agent Alignment Framework: Slow Down and Don’t Break Things". 
 Read our [OpenReview paper](https://openreview.net/forum?id=gMvARxotd6).
+<p align="center">
+  <img src="plots/FAAF_Cartoon.png" alt="FAAF Cartoon" width="400"/>
+</p>
+
 
 # FAAF Implementation Files
 
