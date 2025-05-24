@@ -19,7 +19,41 @@ Read our [OpenReview paper](https://openreview.net/forum?id=gMvARxotd6).
 * `faaf_trainer.py` - Core FAAF trainer implementation
   * Handles loss computation 
   * Manages phi-unconditioned forward passes
-  * Implements preference alignment
+   
+ - Implements preference alignment  
+  <details>
+  <summary><b>FAAF Loss Function (Click to expand)</b></summary>
+
+  ```python
+  def faaf_loss(
+      self,
+      policy_chosen_logps: torch.FloatTensor,      # π_θ(f_w|φ,x)
+      policy_rejected_logps: torch.FloatTensor,     # π_θ(f_l|φ,x)
+      reference_chosen_logps: torch.FloatTensor,    # π_ref(f_w|φ,x)
+      reference_rejected_logps: torch.FloatTensor,  # π_ref(f_l|φ,x)
+      policy_chosen_friction_logps: torch.FloatTensor,      # π_θ(f_w|x)
+      policy_rejected_friction_logps: torch.FloatTensor,    # π_θ(f_l|x)
+      reference_chosen_friction_logps: torch.FloatTensor,   # π_ref(f_w|x)
+      reference_rejected_friction_logps: torch.FloatTensor  # π_ref(f_l|x)
+  ) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
+      """
+      FAAF loss combining conditional and unconditioned policy ratios for preference learning.
+      Adapted from DPO loss in DPO trainer.
+
+      Returns:
+          Tuple of FAAF loss and reward components (all shape: batch_size,)
+      """
+      chosen_logratios = policy_chosen_logps.to(self.accelerator.device) - (
+          not self.reference_free
+      ) * reference_chosen_logps.to(self.accelerator.device)
+
+      rejected_logratios = policy_rejected_logps.to(self.accelerator.device) - (
+          not self.reference_free
+      ) * reference_rejected_logps.to(self.accelerator.device)
+
+``` 
+</details>  
+  
 
 * `llm_judge_evals.py` - LLM evaluation pipeline
   * Runs pairwise position-swapped evaluations
